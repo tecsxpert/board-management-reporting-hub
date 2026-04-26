@@ -1,36 +1,43 @@
 package com.internship.tool;
 
-import jakarta.validation.Valid;
+import com.internship.tool.entity.User;
+import com.internship.tool.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserService service;
+    private final UserRepository userRepository;
 
-    public UserController(UserService service) {
-        this.service = service;
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    @GetMapping
-    public List<UserDTO> getAll() {
-        return service.getAllUsers();
-    }
-
+    // Create User
     @PostMapping
-    public User create(@Valid @RequestBody User user) {
-        return service.createUser(user);
+    public User createUser(@RequestBody User user) {
+        return userRepository.save(user);
     }
 
-    @PutMapping("/{id}")
-    public User update(@PathVariable Long id, @Valid @RequestBody User user) {
-        return service.updateUser(id, user);
+    // Get all users
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
+    // Get user by id
+    @GetMapping("/{id}")
+    public User getUserById(@PathVariable Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    // Delete user
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable Long id) {
-        return service.deleteUser(id);
+    public String deleteUser(@PathVariable Long id) {
+        userRepository.deleteById(id);
+        return "User deleted successfully";
     }
 }

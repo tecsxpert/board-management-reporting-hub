@@ -1,44 +1,25 @@
 package com.internship.tool;
 
+import com.internship.tool.entity.User;
+import com.internship.tool.repository.UserRepository;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 public class UserService {
 
-    private final UserRepository repo;
+    private final UserRepository userRepository;
 
-    public UserService(UserRepository repo) {
-        this.repo = repo;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public List<UserDTO> getAllUsers() {
-        return repo.findAll()
-                .stream()
-                .map(u -> new UserDTO(u.getId(), u.getName(), u.getEmail()))
-                .toList();
+    public User saveUser(User user) {
+        return userRepository.save(user);
     }
 
-    public User createUser(User user) {
-        return repo.save(user);
-    }
-
-    public User updateUser(Long id, User user) {
-        User u = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
-
-        u.setName(user.getName());
-        u.setEmail(user.getEmail());
-
-        return repo.save(u);
-    }
-
-    public String deleteUser(Long id) {
-        if (!repo.existsById(id)) {
-            throw new RuntimeException("User not found with id: " + id);
-        }
-
-        repo.deleteById(id);
-        return "User deleted successfully";
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }
