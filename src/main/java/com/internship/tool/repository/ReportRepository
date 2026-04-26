@@ -1,0 +1,15 @@
+package com.internship.tool.repository;
+
+import com.internship.tool.entity.Report;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface ReportRepository extends JpaRepository<Report, Long> {
+
+    List<Report> findByStatus(String status);
+
+    List<Report> findByCreatedBy(String createdBy);
+
+    List<Report> findByStatusAndCreatedBy(String status, String createdBy);
+}
