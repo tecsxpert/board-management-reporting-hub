@@ -5,9 +5,9 @@ import com.internship.tool.exception.DuplicateEmailException;
 import com.internship.tool.exception.InvalidInputException;
 import com.internship.tool.exception.UserNotFoundException;
 import com.internship.tool.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UserService {
@@ -28,8 +28,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public Page<User> getAllUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 
     public User getUserById(Long id) {
