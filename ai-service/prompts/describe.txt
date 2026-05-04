@@ -10,7 +10,8 @@ Your task:
 Rules:
 - Keep it concise
 - Use professional business language
-- Do not add unnecessary details
+- Do not add unnecessary details 
+- Be specific and insightful
 
 Return STRICTLY in JSON format:
 {
