@@ -1,17 +1,12 @@
 spring:
   mail:
-    host: sandbox.smtp.mailtrap.io
-    port: 2525
-    username: afc542d6ead06a
-    password: 0a526cffd0bf76
+    host: ${MAIL_HOST:sandbox.smtp.mailtrap.io}
+    port: ${MAIL_PORT:2525}
+    username: ${MAIL_USERNAME:test@example.com}
+    password: ${MAIL_PASSWORD:test}
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
-
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
-    cache: false
