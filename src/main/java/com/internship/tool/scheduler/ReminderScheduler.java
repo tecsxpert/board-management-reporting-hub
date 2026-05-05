@@ -13,17 +13,25 @@ public class ReminderScheduler {
         this.emailService = emailService;
     }
 
-    @Scheduled(fixedRate = 60000)
-    public void sendDailyReminder() {
-        System.out.println("Scheduler running...");
-        System.out.println("Sending email...");
+    @Scheduled(cron = "0 0 9 * * ?")
+    public void dailyReminder() {
+        System.out.println("Daily reminder scheduler running...");
 
-        emailService.sendSimpleMail(
+        emailService.sendHtmlMail(
                 "test@example.com",
                 "Daily Reminder",
-                "This is your daily reminder."
+                "email/daily-reminder"
         );
+    }
 
-        System.out.println("Email sent successfully");
+    @Scheduled(cron = "0 0 18 * * ?")
+    public void deadlineAlert() {
+        System.out.println("Deadline alert scheduler running...");
+
+        emailService.sendHtmlMail(
+                "test@example.com",
+                "Deadline Alert",
+                "email/deadline-alert"
+        );
     }
 }

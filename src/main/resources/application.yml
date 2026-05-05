@@ -10,3 +10,8 @@ spring:
           auth: true
           starttls:
             enable: true
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
