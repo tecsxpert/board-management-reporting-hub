@@ -1,31 +1,43 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
-export default function Navbar({ setPage }) {
+export default function Navbar({ setPage, currentPage }) {
   const { logout } = useContext(AuthContext);
 
+  const navItem = (page, label, icon) => (
+    <button
+      onClick={() => setPage(page)}
+      className={`flex items-center gap-2 px-4 py-2 rounded-lg transition shadow ${
+        currentPage === page
+          ? "bg-indigo-700 text-white"
+          : "bg-indigo-600 text-white hover:bg-indigo-500"
+      }`}
+    >
+      <span>{icon}</span>
+      {label}
+    </button>
+  );
+
   return (
-    <div className="bg-blue-800 text-white px-6 py-4 flex flex-col md:flex-row justify-between items-center shadow">
-      <h2 className="text-2xl font-bold">Reporting Hub</h2>
+    <div className="bg-white/80 backdrop-blur-md border-b shadow-sm px-6 py-4 flex flex-col md:flex-row justify-between items-center">
+      
+      <h2 className="text-2xl font-bold text-indigo-600">
+        📊 Reporting Hub
+      </h2>
 
       <div className="flex gap-3 mt-3 md:mt-0">
-        <button onClick={() => setPage("dashboard")} className="hover:bg-blue-600 px-4 py-2 rounded">
-          Dashboard
-        </button>
-        <button onClick={() => setPage("list")} className="hover:bg-blue-600 px-4 py-2 rounded">
-          List
-        </button>
-        <button onClick={() => setPage("create")} className="hover:bg-blue-600 px-4 py-2 rounded">
-          Create
-        </button>
+        {navItem("dashboard", "Dashboard", "📈")}
+        {navItem("list", "Reports", "📋")}
+        {navItem("create", "Create", "➕")}
+
         <button
           onClick={() => {
             logout();
             setPage("login");
           }}
-          className="bg-red-500 px-4 py-2 rounded hover:bg-red-600"
+          className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition shadow"
         >
-          Logout
+          🚪 Logout
         </button>
       </div>
     </div>

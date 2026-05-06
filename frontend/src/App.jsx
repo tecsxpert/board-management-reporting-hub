@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { AuthContext } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
 import Dashboard from "./pages/Dashboard";
@@ -10,18 +10,31 @@ export default function App() {
   const { token } = useContext(AuthContext);
   const [page, setPage] = useState("login");
 
-  if (!token && page !== "login") {
-    setPage("login");
-  }
+  // Handle auth redirect
+  useEffect(() => {
+    if (!token) {
+      setPage("login");
+    } else {
+      setPage("dashboard"); // auto redirect after login
+    }
+  }, [token]);
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-      {token && <Navbar setPage={setPage} />}
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 to-indigo-50">
 
-      {page === "login" && <LoginPage setPage={setPage} />}
-      {page === "dashboard" && token && <Dashboard />}
-      {page === "list" && token && <ListPage />}
-      {page === "create" && token && <CreatePage />}
+      {/* Navbar */}
+      {token && (
+        <Navbar setPage={setPage} currentPage={page} />
+      )}
+
+      {/* Pages */}
+      <div className="p-4">
+        {page === "login" && <LoginPage setPage={setPage} />}
+        {page === "dashboard" && token && <Dashboard />}
+        {page === "list" && token && <ListPage />}
+        {page === "create" && token && <CreatePage />}
+      </div>
+
     </div>
   );
 }
