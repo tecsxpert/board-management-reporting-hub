@@ -1,3 +1,110 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  font-family: Arial, sans-serif;
+  --primary: #1B4F8A;
+  --primary-dark: #143B68;
+  --primary-light: #E8F1FA;
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7f9fc;
+  color: #1f2937;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  font-family: Arial, sans-serif;
+}
+
+button,
+.btn,
+.primary-btn {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0 var(--space-2);
+  border: none;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover,
+.btn:hover,
+.primary-btn:hover {
+  background: var(--primary-dark);
+}
+
+input,
+select,
+textarea {
+  min-height: 44px;
+  padding: 0 var(--space-2);
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: var(--space-3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-3);
+}
+
+.empty-state {
+  padding: var(--space-4);
+  text-align: center;
+  color: #6b7280;
+  background: white;
+  border-radius: 12px;
+  border: 1px dashed #cbd5e1;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.2s infinite;
+  border-radius: 8px;
+}
+
+.skeleton-line {
+  height: 16px;
+  margin-bottom: var(--space-1);
+}
+
+.skeleton-line.short {
+  width: 60%;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
